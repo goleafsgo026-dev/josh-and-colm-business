@@ -50,3 +50,5 @@ html.motion-paused{scroll-behavior:auto}.motion-paused *, .motion-paused *::befo
 @media(max-width:349px){.brand-name{font-size:18px}.header .brand{gap:6px}.menu-toggle{gap:8px}.header .logo-crop{width:48px;flex-basis:48px}.hero-note{align-items:start}.hero-index{column-gap:12px}.hero-index span{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.scroll-motion [data-reveal]{opacity:1;transform:none}.hero-media .hero-photo,.scroll-motion [data-reveal="image"]>img{transform:none;will-change:auto}.reading-progress{transition:none}.route-light{stroke-dashoffset:0}}
 .header .logo-crop{mix-blend-mode:lighten}.header.scrolled{background:var(--navy)}.footer .sources-button{margin-right:18px}
+.canada-priorities>div{grid-template-columns:30px minmax(0,1fr)}.canada-priorities>div>div{min-width:0}.canada-priorities a{max-width:100%}.canada-priorities a span{flex:0 0 auto}
+@media(min-width:760px){.canada-priorities>div{grid-template-columns:40px minmax(0,1fr)}.canada-priorities>div>div{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}}
