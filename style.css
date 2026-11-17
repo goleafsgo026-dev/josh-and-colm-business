@@ -15,3 +15,38 @@
 .hero-photo{transform:none;will-change:object-position}
 html.motion-paused{scroll-behavior:auto}.motion-paused *, .motion-paused *::before,.motion-paused *::after{animation:none!important;transition:none!important}.motion-paused .route-light{stroke-dashoffset:0}.motion-paused .hero-photo{transform:none!important}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.trade-route .route-light{stroke-dashoffset:0}.hero-photo{transform:none!important}}
+
+/* The supplied globe emblem is framed directly from the original brand artwork. */
+.logo-crop{position:relative;display:block;width:66px;height:62px;flex:0 0 66px;overflow:hidden;mix-blend-mode:screen}
+.logo-crop>img{position:absolute;max-width:none;width:365px;height:auto;left:-10px;top:-9px}
+.header{position:fixed;padding-top:18px;padding-bottom:18px;transition:padding .25s ease,background .25s ease;z-index:20}
+.header.scrolled{padding-top:8px;padding-bottom:8px;background:#071b29f5;border-bottom-color:#ffffff30}
+.header .brand{gap:12px}.brand-name{font-size:24px;white-space:nowrap}.brand-name small{font-size:8px}
+.reading-progress{position:absolute;left:0;bottom:-1px;width:100%;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;pointer-events:none}
+.hero-media{position:absolute;inset:0;z-index:-3;overflow:hidden;background:var(--navy)}
+.hero-media picture{display:block;width:100%;height:100%}
+.hero-media .hero-photo{position:absolute;inset:-6% 0 auto;width:100%;height:112%;transform:translate3d(0,var(--photo-shift,0px),0);will-change:transform;filter:none;object-position:60% center}
+.hero-scrim{background:linear-gradient(90deg,#071b29ed,#071b2999 56%,#071b2926),linear-gradient(0deg,#071b29,transparent 45%,#071b2955)}
+.hero-content{max-width:1160px}.hero-description{line-height:1.8}.hero-note{bottom:14px}.scroll-cue{display:inline-flex;gap:14px;align-items:center;min-height:44px;font-size:10px}.scroll-cue:hover{text-decoration:underline}.scroll-cue:active{transform:translateY(2px)}
+.hero-index{bottom:75px}.trade-route{opacity:.55}.trade-route .route-light{animation-duration:3.2s}
+.about-seal.logo-crop{width:132px;height:122px;mix-blend-mode:normal;margin-bottom:26px;border-radius:50%;background:var(--navy)}
+.about-seal.logo-crop>img{width:730px;left:-20px;top:-18px}
+.about h2{font-size:clamp(46px,6vw,82px)}
+.country-tabs{background:var(--ivory);position:relative;z-index:3}.country-tabs button{transition:background .2s,color .2s,border-color .2s}.country-tabs button[aria-selected=true]{background:#e4dfd3}
+.country-visual>img{filter:none;transition:opacity .25s}.country-photo-overlay{background:linear-gradient(0deg,#071b29f2,transparent 100%)}
+.scroll-motion [data-reveal="rise"]{opacity:0;transform:translate3d(0,32px,0);transition:opacity .75s ease,transform .85s cubic-bezier(.2,.65,.2,1)}
+.scroll-motion [data-reveal="slide"]{opacity:0;transform:translate3d(26px,0,0);transition:opacity .6s ease,transform .75s cubic-bezier(.2,.65,.2,1)}
+.scroll-motion [data-reveal].is-visible{opacity:1;transform:none}
+.scroll-motion [data-reveal="image"]>img{transform:scale(1.09);transition:transform 1.4s cubic-bezier(.2,.65,.2,1)}
+.scroll-motion [data-reveal="image"].is-visible>img{transform:scale(1)}
+.canada-outlook{background:var(--navy);color:var(--ivory)}
+.canada-opener{display:grid;gap:32px;margin-bottom:45px}.canada-opener h2{font-size:clamp(48px,6vw,88px);margin:20px 0}.canada-opener .section-label{color:var(--gold)}
+.canada-opener>p{font-size:15px;color:#c6d0d5;max-width:360px;align-self:end}.canada-photo{position:relative;overflow:hidden;aspect-ratio:2/1;margin:0 0 36px}.canada-photo img{width:100%;height:100%;object-position:center 48%}.canada-photo figcaption{position:absolute;bottom:16px;left:20px;padding:4px 8px;background:#071b29dd;font-size:10px}
+.canada-priorities{counter-reset:priorities}.canada-priorities>div{padding:28px 0;border-top:1px solid #ffffff38;display:grid;gap:16px;grid-template-columns:30px 1fr}.canada-priorities>div::before{counter-increment:priorities;content:'0' counter(priorities);color:var(--gold);font-size:11px;padding-top:6px}.canada-priorities h3{font-family:var(--serif);font-size:28px}.canada-priorities p{font-size:13px;line-height:1.9;color:#c6d0d5;margin-top:13px;max-width:620px}.canada-priorities a{display:inline-flex;align-items:center;gap:10px;padding:12px 0;min-height:44px;font-size:11px;color:var(--gold);text-decoration:underline;text-underline-offset:4px}.canada-priorities a:hover{text-decoration-thickness:3px}.canada-priorities a:active{opacity:.7}.canada-closing{padding-top:27px;border-top:1px solid #ffffff38;font-family:var(--serif);font-size:24px;font-style:italic}
+.footer{border-top:1px solid #ffffff30}.footer>div p{font-size:11px}
+@media(min-width:760px){.intro-grid{grid-template-columns:1.1fr 1fr;gap:45px;align-items:end}.canada-opener{grid-template-columns:1.3fr 1fr;align-items:end}.canada-opener>p{font-size:16px}.canada-priorities>div{grid-template-columns:40px 1fr}.canada-priorities>div>div{display:grid;grid-template-columns:1fr 1.2fr;column-gap:50px}.canada-priorities h3{font-size:32px}.canada-priorities p{margin:0}.canada-priorities a{grid-column:2;justify-self:start}.canada-photo{aspect-ratio:2.6/1}}
+@media(min-width:1000px){.header{padding-top:17px;padding-bottom:17px}.header .logo-crop{width:78px;height:72px;flex-basis:78px}.header .logo-crop>img{width:430px;left:-12px;top:-10px}.header .brand-name{font-size:29px}.header .brand-name small{font-size:9px}.header.scrolled{padding-top:3px;padding-bottom:3px}.hero h1{font-size:clamp(74px,6.8vw,108px)}.hero-description{font-size:17px}.hero-scrim{background:linear-gradient(90deg,#071b29ed,#071b2980 53%,transparent),linear-gradient(0deg,#071b29,transparent 50%,#071b2944)}.hero-content{padding-top:40px}.country-tabs{position:sticky;top:80px}.country-detail>h3{font-size:34px}.intro-grid{grid-template-columns:1.3fr 1fr;gap:10%}.about-layout{gap:10%}.about-copy{padding-top:40px}.about-seal.logo-crop{margin-top:10px}.canada-opener>p{padding-bottom:10px}}
+@media(max-width:619px){.header{padding-left:18px;padding-right:18px}.header .brand{gap:8px}.header .logo-crop{width:53px;height:52px;flex-basis:53px}.header .logo-crop>img{width:300px;left:-8px;top:-8px}.brand-name{font-size:21px}.hero{min-height:790px;padding-top:155px}.hero-note>span{max-width:145px}.scroll-cue{max-width:125px;line-height:1.6;font-size:9px}.hero-index{bottom:90px}.canada-photo{aspect-ratio:1.4/1}.country-detail{padding-left:22px;padding-right:22px}.about-seal.logo-crop{width:108px;height:101px}.about-seal.logo-crop>img{width:600px;left:-16px;top:-15px}}
+@media(max-width:349px){.brand-name{font-size:18px}.header .brand{gap:6px}.menu-toggle{gap:8px}.header .logo-crop{width:48px;flex-basis:48px}.hero-note{align-items:start}.hero-index{column-gap:12px}.hero-index span{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.scroll-motion [data-reveal]{opacity:1;transform:none}.hero-media .hero-photo,.scroll-motion [data-reveal="image"]>img{transform:none;will-change:auto}.reading-progress{transition:none}.route-light{stroke-dashoffset:0}}
+.header .logo-crop{mix-blend-mode:lighten}.header.scrolled{background:var(--navy)}.footer .sources-button{margin-right:18px}

@@ -10,11 +10,11 @@ function selectCountry(key,focus=false){
   const c=countries[key]; if(!c)return;
   tabs.forEach(tab=>{const selected=tab.dataset.country===key;tab.setAttribute('aria-selected',selected);tab.tabIndex=selected?0:-1;if(selected&&focus)tab.focus()});
   panel.setAttribute('aria-labelledby',`tab-${key}`);
-  const fields={number:`Brief ${c.number}`,name:c.name,population:c.population,caption:c.caption,system:c.system,headline:c.headline,context:c.context,recommendation:c.recommendation,benefit:c.benefit,risk:c.risk,politics:c.politics,'politics-title':c.politicsTitle,'politics-risk':c.politicsRisk,investor:c.investor};
+  const fields={number:`Strategy ${c.number}`,name:c.name,population:c.population,caption:c.caption,system:c.system,headline:c.headline,context:c.context,recommendation:c.recommendation,benefit:c.benefit,risk:c.risk,politics:c.politics,'politics-title':c.politicsTitle,'politics-risk':c.politicsRisk,investor:c.investor};
   Object.entries(fields).forEach(([id,value])=>document.getElementById(`country-${id}`).textContent=value);
-  const photo=document.querySelector('#country-photo');photo.src=`assets/${c.image}`;photo.alt=c.alt;
+  const photo=document.querySelector('#country-photo');photo.style.opacity='';photo.src=`assets/${c.image.replace('.jpg','.webp')}`;photo.alt=c.alt;
   document.querySelectorAll('#country-panel details').forEach(detail=>detail.open=false);
-  panel.classList.remove('changing');void panel.offsetWidth;panel.classList.add('changing');
+  if(!reduced.matches)panel.animate([{opacity:.55,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],{duration:320,easing:'ease-out'});
 }
 tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectCountry(tab.dataset.country));tab.addEventListener('keydown',event=>{let target;if(event.key==='ArrowRight')target=(index+1)%tabs.length;if(event.key==='ArrowLeft')target=(index+tabs.length-1)%tabs.length;if(event.key==='Home')target=0;if(event.key==='End')target=tabs.length-1;if(target!==undefined){event.preventDefault();selectCountry(tabs[target].dataset.country,true)}})});
 document.querySelectorAll('[data-open-country]').forEach(link=>link.addEventListener('click',()=>selectCountry(link.dataset.openCountry)));
@@ -24,16 +24,32 @@ menu.addEventListener('click',()=>{const expanded=menu.getAttribute('aria-expand
 nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&nav.classList.contains('open')){closeMenu();menu.focus()}});
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
-let paused=reduced.matches;
-try{paused=paused||localStorage.getItem('jc-motion')==='paused'}catch{}
-const motionButton=document.querySelector('#motion-toggle');
-function applyMotion(){root.classList.toggle('motion-paused',paused);motionButton.setAttribute('aria-pressed',String(paused));motionButton.replaceChildren();const mark=document.createElement('span');mark.className='motion-mark';mark.setAttribute('aria-hidden','true');mark.textContent=paused?'▷':'Ⅱ';motionButton.append(mark,document.createTextNode(paused?' Resume motion':' Pause motion'))}
-applyMotion();
-motionButton.addEventListener('click',()=>{paused=!paused;applyMotion();try{localStorage.setItem('jc-motion',paused?'paused':'playing')}catch{}});
-reduced.addEventListener('change',event=>{if(event.matches){paused=true;applyMotion()}});
-const hero=document.querySelector('.hero');const heroPhoto=document.querySelector('.hero-photo');let queued=false;
-function moveHero(){queued=false;if(paused||reduced.matches)return;const y=window.scrollY;if(y<hero.offsetHeight)heroPhoto.style.objectPosition=`${50+Math.min(y*.025,18)}% center`}
-window.addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(moveHero)}},{passive:true});
+const header=document.querySelector('.header');
+const hero=document.querySelector('.hero');
+const heroMedia=document.querySelector('.hero-media');
+const progress=document.querySelector('.reading-progress');
+const revealElements=[...document.querySelectorAll('[data-reveal]')];
+let queued=false,heroHeight=0,scrollRange=1;
+function measure(){heroHeight=hero.offsetHeight;scrollRange=Math.max(1,document.documentElement.scrollHeight-innerHeight)}
+function updateScroll(){
+ queued=false;
+ const y=scrollY;
+ header.classList.toggle('scrolled',y>70);
+ progress.style.transform=`scaleX(${Math.min(1,y/scrollRange)})`;
+ if(!reduced.matches&&innerWidth>900&&y<heroHeight)heroMedia.style.setProperty('--photo-shift',`${Math.min(55,y*.075)}px`);
+}
+function queueScroll(){if(!queued){queued=true;requestAnimationFrame(updateScroll)}}
+window.addEventListener('scroll',queueScroll,{passive:true});
+window.addEventListener('resize',()=>{measure();queueScroll()},{passive:true});
+const resizeObserver=new ResizeObserver(measure);resizeObserver.observe(document.body);measure();updateScroll();
+const revealObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}})},{threshold:.12,rootMargin:'0px 0px -20px 0px'});
+function setupReveals(){
+ root.classList.toggle('scroll-motion',!reduced.matches);
+ revealElements.forEach(el=>{if(reduced.matches||el.getBoundingClientRect().top<innerHeight*.92){el.classList.add('is-visible')}else{revealObserver.observe(el)}});
+ if(reduced.matches)heroMedia.style.removeProperty('--photo-shift');
+}
+setupReveals();reduced.addEventListener('change',setupReveals);
+countries.estoria.investor='Our strongest general investment choice. Educated workers, infrastructure and market access suit technology, clean energy and advanced manufacturing. Check specialist skills and total project costs; it is not the cheapest location for every business.';
 const dialog=document.querySelector('#sources-dialog');const sourcesButton=document.querySelector('#open-sources');
 sourcesButton.addEventListener('click',()=>dialog.showModal());
 document.querySelector('#close-sources').addEventListener('click',()=>dialog.close());
